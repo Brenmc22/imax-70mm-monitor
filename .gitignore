@@ -1,0 +1,18 @@
+# Runtime settings, credentials, and state
+config.yaml
+.env
+.env.*
+!.env.example
+.monitor-state.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
