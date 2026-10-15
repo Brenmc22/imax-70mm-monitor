@@ -1,0 +1,34 @@
+# Copy to config.yaml before running. Never commit real credentials.
+monitor:
+  poll_interval_seconds: 900         # Every 15 minutes (minimum 300)
+  delay_between_requests_seconds: 10 # Minimum 5 seconds
+  timeout_ms: 35000
+  headless: true
+  stop_after_first_match: true
+
+dates:
+  days_ahead: 7                      # Rolling window, starting today
+  # To use fixed dates, specify BOTH (YYYY-MM-DD):
+  # start_date: '2026-10-16'
+  # end_date: '2026-10-22'
+
+notifications:
+  telegram:
+    enabled: false                    # Set true after exporting env vars
+
+targets:
+  - name: odyssey-lincoln-square
+    movie: The Odyssey
+    theater: AMC Lincoln Square 13
+    format: IMAX 70mm
+    seats_requested: 2
+    listing_url_template: 'https://www.amctheatres.com/movies/the-odyssey-76238/showtimes?date={date}&facilityId=amc-lincoln-square-13'
+    matching_keywords: ['imax', '70mm']
+    unavailable_phrases: ['sold out', 'no seats available']
+    selectors:
+      # Example heuristics from original script; inspect current site to verify.
+      listing_containers: "div[class*='Movie'], div[class*='ShowtimeCard'], div[class*='Section']"
+      showtime_links: "a[href*='seats'], a[href*='showtimes']"
+      available_seats: "button[aria-label*='Available'], div[class*='seat-available'], svg[class*='available']"
+
+  # Add another target here if needed; each can use its own URL and selectors.
